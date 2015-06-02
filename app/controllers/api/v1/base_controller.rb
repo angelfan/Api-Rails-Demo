@@ -1,13 +1,14 @@
 class Api::V1::BaseController < ApplicationController
 
   include Pundit
+
+  attr_accessor :current_user
+
   # disable the CSRF token
   protect_from_forgery with: :null_session
 
   # disable cookies (no set-cookies header in response)
   before_action :destroy_session
-
-  attr_accessor :current_user
 
   rescue_from Pundit::NotAuthorizedError, with: :deny_access
 
@@ -15,18 +16,8 @@ class Api::V1::BaseController < ApplicationController
     request.session_options[:skip] = true
   end
 
-  rails g pundit: install
-
   def api_error(opts = {})
     render nothing: true, status: opts[:status]
-  end
-
-  def unauthenticated!
-    api_error(status: 401)
-  end
-
-  def deny_access
-    api_error(status: 403)
   end
 
   def authenticate_user!
@@ -40,6 +31,23 @@ class Api::V1::BaseController < ApplicationController
     else
       return unauthenticated!
     end
+  end
+
+  def unauthenticated!
+    api_error(status: 401)
+  end
+
+  def deny_access
+    api_error(status: 403)
+  end
+
+  def paginate(resource)
+    resource = resource.page(params[:page] || 1)
+    if params[:per_page]
+      resource = resource.per(params[:per_page])
+    end
+
+    return resource
   end
 
 end
