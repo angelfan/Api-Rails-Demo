@@ -1,5 +1,17 @@
+GIT
+  remote: git://github.com/andreareginato/redis-throttle.git
+  revision: 98cf0bf5f2c3955408f2b5667c7b6ddcd459b6d4
+  specs:
+    redis-throttle (0.0.1)
+      activesupport
+      hiredis
+      rack
+      rack-throttle
+      redis
+      redis-namespace
+
 GEM
-  remote: https://rubygems.org/
+  remote: http://ruby.taobao.org/
   specs:
     actionmailer (4.2.1)
       actionpack (= 4.2.1)
@@ -60,6 +72,7 @@ GEM
     globalid (0.3.5)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    hiredis (0.6.0)
     i18n (0.7.0)
     jbuilder (2.2.12)
       activesupport (>= 3.0.0, < 5)
@@ -88,6 +101,8 @@ GEM
     rack (1.6.1)
     rack-test (0.6.3)
       rack (>= 1.0)
+    rack-throttle (0.4.0)
+      rack (>= 1.0.0)
     rails (4.2.1)
       actionmailer (= 4.2.1)
       actionpack (= 4.2.1)
@@ -114,6 +129,9 @@ GEM
       thor (>= 0.18.1, < 2.0)
     rake (10.4.2)
     rdoc (4.2.0)
+    redis (3.2.1)
+    redis-namespace (1.5.2)
+      redis (~> 3.0, >= 3.0.4)
     sass (3.4.13)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -164,6 +182,7 @@ DEPENDENCIES
   mysql2
   pundit
   rails (= 4.2.1)
+  redis-throttle!
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   spring

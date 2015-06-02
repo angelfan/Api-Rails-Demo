@@ -1,6 +1,7 @@
 require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
+require 'rack/redis_throttle'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -24,5 +25,8 @@ module ApiRailsDemo
     config.active_record.raise_in_transactional_callbacks = true
 
     config.autoload_paths << Rails.root.join('app/policies')
+
+    # 为了测试我们把 limit 设置为 3
+    config.middleware.use Rack::RedisThrottle::Daily, max: 3
   end
 end
